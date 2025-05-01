@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/doctors/register").permitAll() // Public registration
                         .requestMatchers("/api/v1/doctors/**").permitAll()
+                        .requestMatchers("/api/v1/doctors/change-password").permitAll()
                         .anyRequest().authenticated() // All other requests require auth
                 )
                 .httpBasic(Customizer.withDefaults()); // or use formLogin(), or add JWT later

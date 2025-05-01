@@ -1,41 +1,33 @@
 package com.aihealth.prescription_system.mapper;
 
-import com.aihealth.prescription_system.dto.DoctorRegisterRequest;
-import com.aihealth.prescription_system.dto.DoctorResponse;
-import com.aihealth.prescription_system.dto.DoctorUpdateRequest;
+import com.aihealth.prescription_system.dto.*;
 import com.aihealth.prescription_system.entity.Doctor;
-
-import javax.print.Doc;
 
 public class DoctorMapper {
 
-    // For new doctor registration (no ID)
-    public static Doctor toEntity(DoctorRegisterRequest doctorRegisterRequest , String encodePassword) {
+    // Register DTO → Entity
+    public static Doctor toEntity(DoctorRegisterRequest request, String encodedPassword) {
         return Doctor.builder()
-                .fullName(doctorRegisterRequest.getFullName())
-                .email(doctorRegisterRequest.getEmail())
-                .password(encodePassword)
-                .specialization(doctorRegisterRequest.getSpecialization())
-                .registrationNumber(doctorRegisterRequest.getRegistrationNumber())
-                .build();
-
-    }
-
-
-    // For updating existing doctor
-    public static Doctor toEntity(DoctorUpdateRequest request, String encodedPassword) {
-        return Doctor.builder()
-                .id(request.getId())
-                .fullName(request.getFullName())
-                .email(request.getEmail())
+                .fullName(request.fullName())
+                .email(request.email())
                 .password(encodedPassword)
-                .specialization(request.getSpecialization())
-                .registrationNumber(request.getRegistrationNumber())
+                .specialization(request.specialization())
+                .registrationNumber(request.registrationNumber())
                 .build();
     }
 
+    // Update existing Entity using UpdateRequest
+    public static void updateEntity(Doctor existingDoctor, DoctorUpdateRequest request, String encodedPassword) {
+        existingDoctor.setFullName(request.fullName());
+        existingDoctor.setEmail(request.email());
+        existingDoctor.setPassword(encodedPassword);
+        existingDoctor.setSpecialization(request.specialization());
+        existingDoctor.setRegistrationNumber(request.registrationNumber());
+    }
+
+    // Entity → Response DTO
     public static DoctorResponse toResponse(Doctor doctor) {
-        return  new DoctorResponse(
+        return new DoctorResponse(
                 doctor.getId(),
                 doctor.getFullName(),
                 doctor.getEmail(),

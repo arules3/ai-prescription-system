@@ -1,19 +1,13 @@
 package com.aihealth.prescription_system.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class DoctorResponse {
+public record DoctorResponse(Long id,
+                             String fullName,
+                             String email,
+                             String specialization,
+                             String registrationNumber) {}
 
-    private Long id;
-    private String fullName;
-    private String email;
-    private String specialization;
-    private String registrationNumber;
 
-}
+
+
